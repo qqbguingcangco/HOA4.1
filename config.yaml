@@ -1,0 +1,31 @@
+---
+- name: Install enterprise monitoring tools
+  hosts: all
+  tasks:
+    - name: Install elasticsearch
+      include_role:
+        name: ELK
+
+    - name: Install nagios for Ubuntu
+      include_role:
+        name: nagiosubuntu
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Install nagios for CentOS
+      include_role:
+        name: nagioscentos
+      when: ansible_distribution == 'CentOS'
+
+    - name: Install grafana
+      include_role:
+        name: grafana
+
+    - name: Install prometheus for Ubuntu
+      include_role:
+        name: prometheusubuntu
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Install prometheus for CentOS
+      include_role:
+        name: prometheuscentos
+      when: ansible_distribution == 'CentOS'
